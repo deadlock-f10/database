@@ -58,7 +58,7 @@
 					$row = mysqli_fetch_array($result);
 					$name=$row[0];
 					echo $name;*/
-					echo "罗晶";
+					echo "admin";
 					?>
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
