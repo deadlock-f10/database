@@ -2,8 +2,7 @@
 <html>
 <head>
 
-    <meta charset="utf-8">	
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -174,6 +173,8 @@
                                     <tbody>
 										<?php  
 										$con = mysqli_connect("localhost","root","","library");
+										mysqli_query($con,"set character set 'utf8'");//读库 
+										mysqli_query($con,"set names 'utf8'");//写库 
 										if (!$con) {
 											die('Could not connect: ' . mysql_error());
 											}

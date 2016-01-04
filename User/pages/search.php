@@ -104,6 +104,8 @@ function check(value)
 <?php
 function ConnectDatabase($database){
 $con = mysqli_connect("localhost","root","",$database);
+										mysqli_query($con,"set character set 'utf8'");//读库 
+										mysqli_query($con,"set names 'utf8'");//写库 
 if (!$con){
   	die('Could not connect: ' . mysqli_error());
 }

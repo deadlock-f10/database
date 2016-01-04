@@ -112,6 +112,8 @@ table {
    $password="";
    $dbname="library";
    $conn=mysqli_connect($servername,$username,$password,$dbname);
+										mysqli_query($con,"set character set 'utf8'");//读库 
+										mysqli_query($con,"set names 'utf8'");//写库 
    if(!$conn){
 	   die("connection failed".mysqli_correct_error());
    }

@@ -103,6 +103,8 @@ function check(value)
 <?php
 function ConnectDatabase($database){
 $con = mysqli_connect("localhost","root","",$database);
+										mysqli_query($con,"set character set 'utf8'");//读库 
+										mysqli_query($con,"set names 'utf8'");//写库 
 if (!$con){
   	die('Could not connect: ' . mysqli_error());
 }
@@ -136,6 +138,8 @@ function CloseDatabase($con){
 					<!-- 获得用户姓名 -->
 					<?php
 					$con = ConnectDatabase("library");
+	mysqli_query($con,"set character set 'utf8'");//读库 
+	mysqli_query($con,"set names 'utf8'");//写库 
 					$sql="SELECT name FROM `user-information` WHERE userid=".$_POST["userid"]." and password='".$_POST["password"]."' and approvalstatus=1;";
 					//echo $sql;
 					$result = mysqli_query($con,$sql);
@@ -404,6 +408,8 @@ function CloseDatabase($con){
 									-->	
                                         <?php
 		            $con=ConnectDatabase("library");
+	mysqli_query($con,"set character set 'utf8'");//读库 
+	mysqli_query($con,"set names 'utf8'");//写库 
 					$sql="select callnumber,borrowtime,returntime from borrow where userid='".$_POST["userid"]."'";
 					$result = mysqli_query($con,$sql);
 					while($row = mysqli_fetch_array($result)){
@@ -501,6 +507,8 @@ function CloseDatabase($con){
 									-->	
                                         <?php
 		            $con=ConnectDatabase("library");
+	mysqli_query($con,"set character set 'utf8'");//读库 
+	mysqli_query($con,"set names 'utf8'");//写库 
 					$sql="select callnumber,borrowtime,returntime from borrow where userid=".$_POST["userid"];
 					$result = mysqli_query($con,$sql);
 					while($row = mysqli_fetch_array($result)){
@@ -595,6 +603,8 @@ function CloseDatabase($con){
 									-->	
                                         <?php
 		            $con=ConnectDatabase("library");
+	mysqli_query($con,"set character set 'utf8'");//读库 
+	mysqli_query($con,"set names 'utf8'");//写库 
 					$sql="select callnumber,queuenumber,timetoget from reservation where userid=".$_POST["userid"];
 					$result = mysqli_query($con,$sql);
 					while($row = mysqli_fetch_array($result)){
@@ -673,6 +683,8 @@ function CloseDatabase($con){
                                     <tbody>
 					<?php
 		            $con=ConnectDatabase("library");
+	mysqli_query($con,"set character set 'utf8'");//读库 
+	mysqli_query($con,"set names 'utf8'");//写库 
 					$sql="select * from history where userid=".$_POST["userid"];
 					$result1 = mysqli_query($con,$sql);
 					while($row1 = mysqli_fetch_array($result1)){
