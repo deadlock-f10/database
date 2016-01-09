@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
 
-    <meta charset="utf-8">
+    <meta charset="utf-8">	
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -50,7 +50,7 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                 <!-- /.dropdown -->
+                <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 					<?php
@@ -60,7 +60,7 @@
 					$row = mysqli_fetch_array($result);
 					$name=$row[0];
 					echo $name;*/
-					echo "admin";
+					echo "罗晶";
 					?>
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -125,23 +125,9 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> 数据维护<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="backup.php">数据备份</a>
-                                </li>
-                                <li>
-                                    <a href="restore.php">数据还原</a>
-                                </li>
-								 <li>
-                                    <a href="initialization.php">数据初始化</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> 帮助</a>
                         </li>
-                        <li>
-                            <a href="help.php"><i class="fa fa-files-o fa-fw"></i> 帮助</a>
-                        </li>
+						
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -149,10 +135,11 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-       <div id="page-wrapper">
-            <div class="row">
+        <!-- Page Content -->
+          <div id="page-wrapper">
+			 <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">图书借出</h1>
+                    <h1 class="page-header">读者信息管理</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -161,59 +148,71 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            请填写以下信息：
+							<button type="button" class="btn btn-outline btn-success"
+							onclick="show('onshelve.php')"><i class="fa  fa-plus-circle fa-fw"></i>审核读者</button>	
+							<button type="button" class="btn btn-outline btn-primary"
+							onclick="show2('uploaduser.php')"><i class="fa  fa-upload  fa-fw"></i>批量添加读者</button>	
+												
                         </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form action="finishborrow.php" role="form" >
-                                        <div class="form-group">
-                                            <label>用户编号</label>
-                                            <input name="userid" class="form-control" placeholder="用户编号">
-                                        </div>
-                                        <div class="form-group" >
-                                            <label>索书号</label>
-                                            <input name="callnumber" class="form-control" placeholder="索书号">
-                                        </div>
-										<div class="form-group" >
-                                            <label>副本号</label>
-                                            <input name="copynumber" class="form-control" placeholder="副本号">
-                                        </div>
-										<!--
-                                        <div id="org"></div> 
-                                        <input type="button" class="btn btn-default" onclick="add1();" value="添加" />
-                                         <script type="text/javascript">
-											function add1(){
-    											var input1 = document.createElement('input');
-    											 input1.setAttribute('type', 'text');
-    											 input1.setAttribute('name', 'books[]');
-    										   	 input1.setAttribute('class', 'form-control');
-												 input1.setAttribute('placeholder', '图书编号');
-    											 var btn1 = document.getElementById("org");
-    											btn1.insertBefore(input1,null);
-												}
-										</script> -->
-   
-                                        <div align="right" onload="load()"> 
-                                             <button type="submit" class="btn btn-default" onclick="test()">确认</button>
-                                             <button type="reset" class="btn btn-default">取消</button>
-                                        </div>                                       
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
+                        <!-- /.panel-heading -->	
+						 <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>用户编号</th>
+											<th>用户姓名</th>
+											<th>用户等级</th>
+											<th>身份证号码</th>
+                                            <th>邮箱</th>
+                                            <th>电话</th>
+                                            <th>审核状态</th>
+											<th>操作</th>
+											<th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+										<?php  
+										$con = mysqli_connect("localhost","root","","library");
+										mysqli_query($con,"set character set 'utf8'");//读库 
+										mysqli_query($con,"set names 'utf8'");//写库 
+										if (!$con) {
+											die('Could not connect: ' . mysql_error());
+											}
+										$sql="select * from `user-information`";
+										$rs=mysqli_query($con,$sql);
+										while($row=mysqli_fetch_array($rs)){
+										?>
+										<tr>
+											<td><?php echo $row['userid']?></td>
+											<td><?php echo $row['level']?></td>
+											<td><?php echo $row['name']?></td>
+											<td><?php echo $row['idnumber']?></td>
+											<td><?php echo $row['email']?></td>
+											<td><?php echo $row['phonenumber']?></td>
+											<td><?php echo $row['approvalstatus']?></td>	
+											<td>											
+											<button type="button" class="btn btn-outline btn-primary" onclick="">
+											<i class="fa fa-edit fa-fw"></i>
+											编辑</button>
+											</td>
+											<script language="javascript"> 
+											function delcfm() { 
+												if (!confirm("确认要删除这一条记录吗？")) { 
+													window.event.returnValue = false;    } 
+													} 
+											</script>
+											<td>
+											<button type="button" class="btn btn-outline btn-danger" onclick="delcfm()">
+											<i class="fa fa-minus-circle fa-fw"></i>
+											注销</button>
+											</td>
+										</tr>	
+										<?php } ?>
+                                    </tbody>
+                                </table>
                             </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
-
+                        
     </div>
     <!-- /#wrapper -->
 
@@ -226,8 +225,30 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
+    <!-- DataTables JavaScript -->
+    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
+
+	<script type="text/javascript">
+	function show(url){
+		window.open(url,"newwindow", "height=620, width=600, left=400,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=yes");
+	}
+	function show2(url){
+		window.open(url,"newwindow", "height=300, width=600, left=400,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=yes");
+	}
+	</script>
 
 </body>
 

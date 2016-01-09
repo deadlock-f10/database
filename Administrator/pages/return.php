@@ -134,7 +134,7 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-       <div id="page-wrapper">
+      <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">图书归还</h1>
@@ -151,20 +151,21 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label>时间</label>
-                                            <input class="form-control" placeholder="当前时间">
-                                        </div>
+                                    <form action="finishreturn.php" role="form" >
                                         <div class="form-group">
                                             <label>用户编号</label>
-                                            <input class="form-control" placeholder="用户编号">
+                                            <input name="userid" class="form-control" placeholder="用户编号">
                                         </div>
-                                        <div class="form-group">
-                                            <label>图书编号</label>
-                                            <input class="form-control" placeholder="图书编号">
+                                        <div class="form-group" >
+                                            <label>索书号</label>
+                                            <input name="callnumber" class="form-control" placeholder="索书号">
                                         </div>
-                                         <div id="org"></div> 
+										<div class="form-group" >
+                                            <label>副本号</label>
+                                            <input name="copynumber" class="form-control" placeholder="副本号">
+                                        </div>
+										<!--
+                                        <div id="org"></div> 
                                         <input type="button" class="btn btn-default" onclick="add1();" value="添加" />
                                          <script type="text/javascript">
 											function add1(){
@@ -176,15 +177,12 @@
     											 var btn1 = document.getElementById("org");
     											btn1.insertBefore(input1,null);
 												}
-										</script> 
-                                        <div class="form-group">
-                                            <label>备注</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div align="right"> 
-                                             <button type="submit" class="btn btn-default">确认</button>
+										</script> -->
+   
+                                        <div align="right" onload="load()"> 
+                                             <button type="submit" class="btn btn-default" onclick="test()">确认</button>
                                              <button type="reset" class="btn btn-default">取消</button>
-                                        </div>
+                                        </div>                                       
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -200,6 +198,7 @@
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
+
 
     </div>
     <!-- /#wrapper -->

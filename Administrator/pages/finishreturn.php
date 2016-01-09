@@ -54,7 +54,7 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 					<?php
-					/*$con=ConnectDatabase("library");
+					/*$con=mysqli_connect("localhost","root","","library");
 					$sql="select name where userid=".$_POST["userid"];
 					$result = mysqli_query($con,$sql);
 					$row = mysqli_fetch_array($result);
@@ -161,26 +161,43 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            请填写以下信息：
+                            图书已归还，详情如下
                         </div>
                         <div class="panel-body">
+							<?php
+							$userid=$_GET['userid'];
+							$callnumber=$_GET['callnumber'];
+							$copynumber=$_GET['copynumber'];
+							$borrowtime=date("Y-m-d");
+							$returntime=date('Y-m-d',strtotime('+30 day'));
+							$con=mysqli_connect("localhost","root","","library");
+							mysqli_query($con,"set character set 'utf8'");//读库 
+							mysqli_query($con,"set names 'utf8'");//写库 
+							if (!$con) {	die('Could not connect: ' . mysql_error());}
+							$sql="UPDATE `book-location` SET `isborrowed`=0 WHERE `callnumber`=$callnumber,`copynumber`=$copynumber";
+							mysqli_query($con,$sql);
+							?>
+						
                             <div class="row">
                                 <div class="col-lg-6">
                                     <form action="finishborrow.php" role="form" >
-                                        <div class="form-group">
-                                            <label>用户编号</label>
-                                            <input name="userid" class="form-control" placeholder="用户编号">
+                                        
+										<div class="form-group">
+                                            <label>用户编号：<?php echo $userid; ?></label>
                                         </div>
                                         <div class="form-group" >
-                                            <label>索书号</label>
-                                            <input name="callnumber" class="form-control" placeholder="索书号">
+                                            <label>索书号：<?php echo $callnumber; ?></label>
                                         </div>
 										<div class="form-group" >
-                                            <label>副本号</label>
-                                            <input name="copynumber" class="form-control" placeholder="副本号">
+                                            <label>副本号：<?php echo $copynumber; ?></label>
                                         </div>
-										<!--
-                                        <div id="org"></div> 
+										<div class="form-group" >
+                                            <label>借出时间：<?php echo $borrowtime; ?></label>
+                                        </div>
+										<div class="form-group" >
+                                            <label>归还时间：<?php echo $returntime; ?></label>
+                                        </div>
+                                       <!-- <div id="org"></div> 
                                         <input type="button" class="btn btn-default" onclick="add1();" value="添加" />
                                          <script type="text/javascript">
 											function add1(){
@@ -194,11 +211,10 @@
 												}
 										</script> -->
    
-                                        <div align="right" onload="load()"> 
-                                             <button type="submit" class="btn btn-default" onclick="test()">确认</button>
-                                             <button type="reset" class="btn btn-default">取消</button>
-                                        </div>                                       
-                                    </form>
+                                        <div align="center" onload="load()"> 
+											<input type=button class="btn btn-default" onclick="window.location.href('borrow.php')" value="确认"> 
+                                        </div>   
+								</form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                             </div>
