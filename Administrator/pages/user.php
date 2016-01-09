@@ -185,8 +185,8 @@
 										?>
 										<tr>
 											<td><?php echo $row['userid']?></td>
-											<td><?php echo $row['level']?></td>
 											<td><?php echo $row['name']?></td>
+											<td><?php echo $row['level']?></td>
 											<td><?php echo $row['idnumber']?></td>
 											<td><?php echo $row['email']?></td>
 											<td><?php echo $row['phonenumber']?></td>

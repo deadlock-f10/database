@@ -229,7 +229,7 @@
 												var tab=document.getElementById("tab");
 												var s=tab.rows[hang].cells[4].innerHTML;
 												//alert(s);
-												document.getElementById('m').action = "book.php?id="+s;
+												document.getElementById('m').action = "delbook.php?id="+s;
 												//"circulation.php";
 												
 												document.getElementById("m").submit();										
@@ -255,14 +255,7 @@
     <!-- /#wrapper -->
 
 
-	<?php
-	@$a = $_GET['id'];
-	if($a)
-	{
-		mysqli_query($con,"DELETE FROM `book-information` WHERE `ISBN`=$a");
-	    echo"<script>alert('删除成功!');location.href=book.php';</script>"; 
-	}
-	?>
+	
 
     <!-- jQuery -->
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
