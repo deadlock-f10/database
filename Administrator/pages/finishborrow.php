@@ -174,7 +174,7 @@
 							mysqli_query($con,"set character set 'utf8'");//读库 
 							mysqli_query($con,"set names 'utf8'");//写库 
 							if (!$con) {	die('Could not connect: ' . mysql_error());}
-							$sql="UPDATE `book-location` SET `isborrowed`=1 WHERE `callnumber`=$callnumber,`copynumber`=$copynumber";
+							$sql="UPDATE `book-location` SET `isborrowed`='1' WHERE `callnumber`='$callnumber' AND `copynumber`='$copynumber' ";
 							mysqli_query($con,$sql);
 							$sql="INSERT INTO `book-location`(`userid`, `callnumber`, `copynumber`, `borrowtime`, `returntime`, `renewaltimes`) VALUES ('$userid','$callnumber','$copynumber','$borrowtime','$returntime','0')";
 							mysqli_query($con,$sql);

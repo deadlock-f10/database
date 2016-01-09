@@ -168,13 +168,14 @@
 							$userid=$_GET['userid'];
 							$callnumber=$_GET['callnumber'];
 							$copynumber=$_GET['copynumber'];
-							$borrowtime=date("Y-m-d");
-							$returntime=date('Y-m-d',strtotime('+30 day'));
+							$returntime=date("Y-m-d");
 							$con=mysqli_connect("localhost","root","","library");
 							mysqli_query($con,"set character set 'utf8'");//读库 
 							mysqli_query($con,"set names 'utf8'");//写库 
 							if (!$con) {	die('Could not connect: ' . mysql_error());}
-							$sql="UPDATE `book-location` SET `isborrowed`=0 WHERE `callnumber`=$callnumber,`copynumber`=$copynumber";
+							$sql="UPDATE `book-location` SET `isborrowed`='0' WHERE `callnumber`='$callnumber' AND `copynumber`='$copynumber' ";
+							mysqli_query($con,$sql);
+							$sql="UPDATE `borrow` SET `returntime`='$returntime' WHERE `callnumber`='$callnumber' AND `copynumber`='$copynumber' ";
 							mysqli_query($con,$sql);
 							?>
 						
@@ -191,9 +192,7 @@
 										<div class="form-group" >
                                             <label>副本号：<?php echo $copynumber; ?></label>
                                         </div>
-										<div class="form-group" >
-                                            <label>借出时间：<?php echo $borrowtime; ?></label>
-                                        </div>
+										
 										<div class="form-group" >
                                             <label>归还时间：<?php echo $returntime; ?></label>
                                         </div>
