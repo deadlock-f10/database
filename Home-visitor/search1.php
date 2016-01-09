@@ -174,7 +174,8 @@ function contain($matchword,$con){
 	  $sql="SELECT  count(*) FROM `book-information` WHERE subject1 like '%$keyword%' or subject2 like '%$keyword%' or subject3 like '%$keyword%' or subject4 like '%$keyword%' or subject5 like '%$keyword%';";
 	  }
   else if($author!=null and $author!="作者检索"){
-	  $sql="SELECT  count(*) FROM `book-information` WHERE firstauthor like %$author% or otherauthor like '%$author%';";
+	  $sql="SELECT  count(*) FROM `book-information` WHERE firstauthor like '%$author%' or otherauthor like '%$author%';";
+	  echo $sql;
 	  }
   else if($title!=null and $title!="题目检索"){
 	  $sql="SELECT  count(*) FROM `book-information` WHERE name like '%$title%';";
@@ -237,7 +238,7 @@ function contain($matchword,$con){
 		$sql = "SELECT  `callnumber`, `name`, `firstauthor`,  `subject1`, `subject2`,`subject3`,`language`, `abstract` FROM `book-information` WHERE subject1 like '%$keyword%' or subject2 like '%$keyword%' or subject3 like '%$keyword%' or subject4 like '%$keyword%' or subject5 like '%$keyword%' order by name limit {$offset}, {$length}";
 	}
 	else if($author!=null and $author!="作者检索"){
-	  $sql="SELECT  `callnumber`, `name`, `firstauthor`,  `subject1`,`subject2`,`subject3`, `language`, `abstract` FROM `book-information` WHERE firstauthor like %$author% or otherauthor like '%$author%' order by name limit {$offset}, {$length}";
+	  $sql="SELECT  `callnumber`, `name`, `firstauthor`,  `subject1`,`subject2`,`subject3`, `language`, `abstract` FROM `book-information` WHERE firstauthor like '%$author%' or otherauthor like '%$author%' order by name limit {$offset}, {$length}";
 	  }
   else if($title!=null and $title!="题目检索"){
 	  $sql="SELECT  `callnumber`, `name`, `firstauthor`,  `subject1`,`subject2`,`subject3`, `language`, `abstract` FROM `book-information` WHERE name like '%$title%' order by name limit {$offset}, {$length}";
