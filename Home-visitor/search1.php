@@ -175,7 +175,6 @@ function contain($matchword,$con){
 	  }
   else if($author!=null and $author!="作者检索"){
 	  $sql="SELECT  count(*) FROM `book-information` WHERE firstauthor like '%$author%' or otherauthor like '%$author%';";
-	  echo $sql;
 	  }
   else if($title!=null and $title!="题目检索"){
 	  $sql="SELECT  count(*) FROM `book-information` WHERE name like '%$title%';";
