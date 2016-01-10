@@ -176,7 +176,7 @@
 							if (!$con) {	die('Could not connect: ' . mysql_error());}
 							$sql="UPDATE `book-location` SET `isborrowed`='1' WHERE `callnumber`='$callnumber' AND `copynumber`='$copynumber' ";
 							mysqli_query($con,$sql);
-							$sql="INSERT INTO `book-location`(`userid`, `callnumber`, `copynumber`, `borrowtime`, `returntime`, `renewaltimes`) VALUES ('$userid','$callnumber','$copynumber','$borrowtime','$returntime','0')";
+							$sql="INSERT INTO `borrow`(`userid`, `callnumber`, `copynumber`, `borrowtime`, `returntime`, `renewaltimes`) VALUES ('$userid','$callnumber','$copynumber','$borrowtime','$returntime','0')";
 							mysqli_query($con,$sql);
 							?>
 						
