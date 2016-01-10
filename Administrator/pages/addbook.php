@@ -65,6 +65,8 @@ $language=$_POST["language"];
 $abstract=$_POST["abstract"];
 $sql="INSERT INTO `book-information`(`callnumber`, `ISBN`, `name`, `firstauthor`, `otherauthor`, `publisher`, `publishtime`, `subject1`, `subject2`, `subject3`, `subject4`, `subject5`, `language`, `abstract`, `reservationnumber`) VALUES ('$callnumber','$ISBN','$name','$firstauthor','$otherauthor','$publisher','$publishtime','$subject1','$subject2','$subject3','$subject4','$subject5','$language','$abstract',0)";
 mysqli_query($con,$sql);
+$sql="INSERT INTO `book-location`(`callnumber`,`location`, `copynumber`,`isborrowed`, `iscircled`) VALUES ('$callnumber','保存本阅览室','1','0','1')";
+mysqli_query($con,$sql);
 insert($callnumber,$abstract);
 
 ?>
