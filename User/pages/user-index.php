@@ -754,7 +754,8 @@ function CloseDatabase($con){
                                     <tbody>
 					<?php
 		            $con=ConnectDatabase("library");
-					$sql="select * from borrow where returntime > curdate() and  userid=".$_POST["userid"];
+					$aweeklater=date("Y-m-d",strtotime("+1 week"));
+					$sql="select * from borrow where returntime > curdate() and returntime < '$aweeklater' and  userid=".$_POST["userid"];
 					$result1 = mysqli_query($con,$sql);
 					while($row1 = mysqli_fetch_array($result1)){
 						$callnumber=$row1["callnumber"];
