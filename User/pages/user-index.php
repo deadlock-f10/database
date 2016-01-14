@@ -670,31 +670,37 @@ function CloseDatabase($con){
                                     <thead>
                                         <tr>
                                             <th>索书号</th>
-                                            <th>操作</th>
-                                            <th>时间</th>
+                                            <th>借书时间</th>
+                                            <th>还书时间</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 					<?php
 		            $con=ConnectDatabase("library");
-					$sql="select * from history where userid=".$_POST["userid"];
+					$sql="select * from borrow where userid=".$_POST["userid"];
 					$result1 = mysqli_query($con,$sql);
-					if($result1){
 					while($row1 = mysqli_fetch_array($result1)){
 						$callnumber=$row1["callnumber"];
+						$borrowtime=$row1['borrowtime'];
+						$returntime=$row1['returntime'];
+						$duetime=date("Y-m-d",strtotime("+2 months",strtotime($borrowtime)));
+						$nowtime=date('Y-m-d');
+						if( $returntime> $duetime)
 						echo "<tr class=\"odd gradeX\">";
 						echo "<td>";
 						echo "<a href=detail.php?id=".$row1['callnumber'].">".$row1['callnumber']."</a>";
 						//echo $callnumber;
 						echo "</td>";
 						echo "<td>";
-						echo $row1["type"];
+						echo $row1["borrowtime"];
 						echo "</td>";
-						echo "<td class=\"center\">";
-						echo $row1["time"];
+						echo "<td>";
+						echo $row1["returntime"];
 						echo "</td>";
+			/*			echo "<td class=\"center\">";
+						echo $nowtime;
+						echo "</td>";*/
 						echo "</tr>";
-					}
 					}
 					CloseDatabase($con);									
 										?>
@@ -723,7 +729,7 @@ function CloseDatabase($con){
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">罚款</h1>
+                        <h1 class="page-header">将到期的图书</h1>
                    </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -742,20 +748,18 @@ function CloseDatabase($con){
                                         <tr>
                                             <th>索书号</th>
                                             <th>借书时间</th>
-                                            <th>归书时间</th>
-                                            <th>罚款</th>
+                                            <th>到期时间</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 					<?php
 		            $con=ConnectDatabase("library");
-					
-					$sql="select * from borrow where userid=".$_POST["userid"];
+					$sql="select * from borrow where returntime > curdate() and  userid=".$_POST["userid"];
 					$result1 = mysqli_query($con,$sql);
 					while($row1 = mysqli_fetch_array($result1)){
 						$callnumber=$row1["callnumber"];
 						$borrowtime=$row1['borrowtime'];
-						$returntime=$row1['borrowtime'];
+						$returntime=$row1['returntime'];
 						$duetime=date("Y-m-d",strtotime("+2 months",strtotime($borrowtime)));
 						$nowtime=date('Y-m-d');
 						if( $returntime> $duetime)
@@ -770,9 +774,9 @@ function CloseDatabase($con){
 						echo "<td>";
 						echo $row1["returntime"];
 						echo "</td>";
-						echo "<td class=\"center\">";
+			/*			echo "<td class=\"center\">";
 						echo $nowtime;
-						echo "</td>";
+						echo "</td>";*/
 						echo "</tr>";
 					}
 					CloseDatabase($con);									
